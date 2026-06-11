@@ -24,7 +24,7 @@
 
 The project recently underwent a major production-quality upgrade, introducing a new GitHub-inspired design system, advanced keyboard navigation, and an intelligent README analyzer.
 
-## ✨ Features
+## [NEW] ✨ Features
 
 - **Live Preview**: See your markdown rendered in real-time as you type, or switch to split-pane view.
 - **Visual Builder**: Drag & Drop interface to easily rearrange README sections using `@dnd-kit`.
