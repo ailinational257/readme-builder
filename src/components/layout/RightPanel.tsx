@@ -167,23 +167,25 @@ function HeaderProperties({ section, onUpdate }: P<Section & { type: 'header' }>
         <TextInput value={section.bannerUrl} onChange={(bannerUrl) => onUpdate({ bannerUrl })} placeholder="https://..." />
       </FieldGroup>
 
-      {/* Badges */}
       <FieldGroup label={`Badges (${section.badges.length})`}>
-        <div className="space-y-1.5">
+        <div className="flex flex-wrap gap-2 mb-3">
           {section.badges.map((badge, i) => (
-            <div key={badge.id} className="flex items-center gap-1.5">
-              <img src={getBadgeUrl({ id: badge.id, label: badge.label, message: badge.message, color: badge.color, logoName: badge.logoName, logoColor: badge.logoColor, category: 'custom' }, badge.style)} alt={badge.label} className="h-5 flex-1" />
+            <div key={badge.id} className="flex items-center gap-1 bg-[var(--color-bg-surface)] border border-[var(--color-border)] rounded-md p-1 pr-1.5">
+              <img src={getBadgeUrl({ id: badge.id, label: badge.label, message: badge.message, color: badge.color, logoName: badge.logoName, logoColor: badge.logoColor, category: 'custom' }, badge.style)} alt={badge.label} className="h-5 w-auto" />
               <button
                 onClick={() => {
                   const badges = section.badges.filter((_, j) => j !== i);
                   onUpdate({ badges });
                 }}
-                className="p-1 text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-error)] transition-colors"
+                className="p-0.5 ml-0.5 rounded hover:bg-[var(--color-bg-hover)] text-[var(--color-text-tertiary)] hover:text-[var(--color-accent-error)] transition-colors"
+                title="Remove badge"
               >
                 <Trash2 size={11} />
               </button>
             </div>
           ))}
+        </div>
+        <div className="space-y-1.5">
           <button
             onClick={() => setShowBadgePicker(!showBadgePicker)}
             className="w-full flex items-center justify-center gap-1.5 py-1.5 text-[10px] font-medium text-[var(--color-accent-primary)] border border-dashed border-[var(--color-border)] rounded-md hover:bg-[var(--color-accent-primary-muted)] transition-colors"
@@ -249,7 +251,7 @@ function BadgePicker({ onSelect }: { onSelect: (badge: Badge) => void }) {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-2 gap-1">
+      <div className="flex flex-wrap gap-1.5">
         {filtered.map(preset => (
           <button
             key={preset.id}
@@ -264,9 +266,10 @@ function BadgePicker({ onSelect }: { onSelect: (badge: Badge) => void }) {
               logoColor: preset.logoColor,
               link: '',
             })}
-            className="p-1 hover:bg-[var(--color-bg-hover)] rounded transition-colors"
+            className="hover:opacity-80 transition-opacity"
+            title={preset.label}
           >
-            <img src={getBadgeUrl(preset, 'flat-square')} alt={preset.label} className="h-4 mx-auto" />
+            <img src={getBadgeUrl(preset, 'for-the-badge')} alt={preset.label} className="h-6 w-auto rounded" />
           </button>
         ))}
       </div>

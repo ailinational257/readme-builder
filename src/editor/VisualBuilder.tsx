@@ -164,19 +164,32 @@ function SortableSection({ section }: { section: Section }) {
 function EmptyState({ onAddSection }: { onAddSection: (type: SectionType) => void }) {
   return (
     <div className="flex-1 flex items-center justify-center">
-      <div className="text-center max-w-md mx-auto px-6 py-16 animate-fade-in">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--color-accent-primary)] to-[var(--color-accent-secondary)] flex items-center justify-center mx-auto mb-5 shadow-lg">
-          <Plus size={28} className="text-white" />
+      <div className="text-center max-w-lg mx-auto px-6 py-16 animate-fade-in">
+        {/* Illustration */}
+        <div className="relative mx-auto mb-8 w-28 h-28">
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[var(--color-accent-primary)]/20 to-[var(--color-accent-secondary)]/20 animate-float" />
+          <div className="absolute inset-2 rounded-2xl bg-[var(--color-bg-surface)] border border-[var(--color-border)] flex flex-col items-center justify-center gap-1.5 shadow-lg">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="12" y1="13" x2="12" y2="17" />
+              <line x1="10" y1="15" x2="14" y2="15" />
+            </svg>
+          </div>
         </div>
-        <h2 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">Start Building Your README</h2>
-        <p className="text-sm text-[var(--color-text-secondary)] mb-6">
-          Add sections from the sidebar, or start with a template to get going quickly.
+
+        <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2 tracking-tight">Start Building Your README</h2>
+        <p className="text-sm text-[var(--color-text-secondary)] mb-8 leading-relaxed max-w-sm mx-auto">
+          Add sections from the sidebar, choose a template, or start from scratch with the buttons below.
         </p>
-        <div className="flex gap-2 justify-center flex-wrap">
+
+        {/* Primary Actions */}
+        <div className="flex gap-3 justify-center flex-wrap mb-6">
           <button
             onClick={() => onAddSection('header')}
-            className="px-4 py-2 text-sm font-medium bg-[var(--color-accent-primary)] text-white rounded-lg hover:bg-[var(--color-accent-primary-hover)] transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold bg-[var(--color-accent-primary)] text-white rounded-xl hover:bg-[var(--color-accent-primary-hover)] transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
           >
+            <Plus size={16} />
             Add Header
           </button>
           <button
@@ -185,12 +198,31 @@ function EmptyState({ onAddSection }: { onAddSection: (type: SectionType) => voi
               onAddSection('about');
               onAddSection('features');
               onAddSection('installation');
+              onAddSection('usage');
               onAddSection('license');
             }}
-            className="px-4 py-2 text-sm font-medium bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-text-primary)] transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[var(--color-text-primary)] bg-[var(--color-bg-surface)] border border-[var(--color-border)] rounded-xl hover:bg-[var(--color-bg-hover)] hover:border-[var(--color-border-strong)] transition-all hover:-translate-y-0.5"
           >
             Quick Start
           </button>
+        </div>
+
+        {/* Suggested Templates */}
+        <div className="text-[10px] text-[var(--color-text-tertiary)] uppercase tracking-wider font-semibold mb-3">Or start from a template</div>
+        <div className="flex gap-2 justify-center flex-wrap">
+          {[
+            { label: 'Developer', emoji: '\u{1F4BB}' },
+            { label: 'Open Source', emoji: '\u{1F310}' },
+            { label: 'Portfolio', emoji: '\u{1F3A8}' },
+            { label: 'SaaS', emoji: '\u{1F680}' },
+          ].map(t => (
+            <button
+              key={t.label}
+              className="px-3 py-1.5 text-xs text-[var(--color-text-secondary)] bg-[var(--color-bg-surface)] border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-bg-hover)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-primary)] transition-all"
+            >
+              {t.emoji} {t.label}
+            </button>
+          ))}
         </div>
       </div>
     </div>

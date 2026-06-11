@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react';
 import {
-  FileText,
+  Sparkles,
   Download,
   Upload,
   Sun,
@@ -14,9 +14,14 @@ import {
   FolderArchive,
   GitBranch,
   FileUp,
+  FileText,
+  Undo2,
+  Redo2,
+  Command,
 } from 'lucide-react';
 import { useReadmeStore } from '../../store/readme-store';
-import { useUIStore, type ThemeMode } from '../../store/ui-store';
+import { useUIStore, type ThemeMode, type ViewMode } from '../../store/ui-store';
+import { useHistoryStore } from '../../store/history-store';
 import { exportAsMarkdown, exportAsJSON, exportAsZip, copyToClipboard } from '../../services/export-service';
 import { importFromMarkdownFile, importFromJSONFile, importFromGitHub } from '../../services/import-service';
 
@@ -27,6 +32,13 @@ export function TopNav() {
   const setSections = useReadmeStore(s => s.setSections);
   const theme = useUIStore(s => s.theme);
   const setTheme = useUIStore(s => s.setTheme);
+  const viewMode = useUIStore(s => s.viewMode);
+  const setViewMode = useUIStore(s => s.setViewMode);
+  const toggleCommandPalette = useUIStore(s => s.toggleCommandPalette);
+  const canUndo = useHistoryStore(s => s.canUndo);
+  const canRedo = useHistoryStore(s => s.canRedo);
+  const undo = useHistoryStore(s => s.undo);
+  const redo = useHistoryStore(s => s.redo);
 
   const [exportOpen, setExportOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
@@ -97,12 +109,28 @@ export function TopNav() {
     }
   };
 
+  const handleUndo = () => {
+    const restored = undo();
+    if (restored) setSections(restored);
+  };
+
+  const handleRedo = () => {
+    const restored = redo();
+    if (restored) setSections(restored);
+  };
+
+  const viewModes: { value: ViewMode; label: string }[] = [
+    { value: 'preview', label: 'Preview' },
+    { value: 'markdown', label: 'Markdown' },
+    { value: 'split', label: 'Split' },
+  ];
+
   return (
     <header className="h-12 border-b border-[var(--color-border)] bg-[var(--color-bg-secondary)] flex items-center px-4 gap-3 shrink-0 z-50">
       {/* Logo & Name */}
       <div className="flex items-center gap-2.5">
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[var(--color-accent-primary)] to-[var(--color-accent-secondary)] flex items-center justify-center shadow-sm">
-          <FileText size={14} className="text-white" />
+        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[var(--color-accent-primary)] to-[#1a6b2b] flex items-center justify-center shadow-sm">
+          <Sparkles size={14} className="text-white" />
         </div>
         <input
           id="project-name-input"
@@ -114,7 +142,55 @@ export function TopNav() {
         />
       </div>
 
+      {/* Undo / Redo */}
+      <div className="flex items-center gap-0.5 ml-1">
+        <button
+          onClick={handleUndo}
+          disabled={!canUndo()}
+          className="p-1.5 rounded-md text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-hover)] transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Undo (Ctrl+Z)"
+          title="Undo (Ctrl+Z)"
+        >
+          <Undo2 size={14} />
+        </button>
+        <button
+          onClick={handleRedo}
+          disabled={!canRedo()}
+          className="p-1.5 rounded-md text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-hover)] transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Redo (Ctrl+Shift+Z)"
+          title="Redo (Ctrl+Shift+Z)"
+        >
+          <Redo2 size={14} />
+        </button>
+      </div>
+
       <div className="flex-1" />
+
+      {/* Segmented View Mode Control */}
+      <div className="segmented-control" role="tablist" aria-label="View mode">
+        {viewModes.map(mode => (
+          <button
+            key={mode.value}
+            role="tab"
+            aria-selected={viewMode === mode.value}
+            onClick={() => setViewMode(mode.value)}
+            className={viewMode === mode.value ? 'active' : ''}
+          >
+            {mode.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Command Palette Trigger */}
+      <button
+        onClick={toggleCommandPalette}
+        className="flex items-center gap-1.5 px-2 py-1.5 text-xs text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)] bg-[var(--color-bg-surface)] border border-[var(--color-border)] rounded-md hover:bg-[var(--color-bg-hover)] transition-all"
+        aria-label="Command palette (Ctrl+K)"
+        title="Command palette (Ctrl+K)"
+      >
+        <Command size={12} />
+        <span className="hidden md:inline font-mono text-[10px]">Ctrl+K</span>
+      </button>
 
       {/* Import */}
       <div className="relative">

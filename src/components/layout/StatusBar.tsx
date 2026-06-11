@@ -1,7 +1,7 @@
 // ─── Status Bar ─────────────────────────────────────────────────────────────
 
 import { useEffect } from 'react';
-import { Activity, FileText, Layers, Clock, BarChart3 } from 'lucide-react';
+import { Activity, FileText, Layers, Clock, BarChart3, Command } from 'lucide-react';
 import { useReadmeStore } from '../../store/readme-store';
 import { useUIStore } from '../../store/ui-store';
 import { useAnalyzerStore } from '../../store/analyzer-store';
@@ -9,8 +9,6 @@ import { useAnalyzerStore } from '../../store/analyzer-store';
 export function StatusBar() {
   const sections = useReadmeStore(s => s.sections);
   const lastSaved = useReadmeStore(s => s.lastSaved);
-  const viewMode = useUIStore(s => s.viewMode);
-  const setViewMode = useUIStore(s => s.setViewMode);
   const analyzerOpen = useUIStore(s => s.analyzerOpen);
   const toggleAnalyzer = useUIStore(s => s.toggleAnalyzer);
   const score = useAnalyzerStore(s => s.score);
@@ -31,28 +29,6 @@ export function StatusBar() {
 
   return (
     <footer className="h-7 border-t border-[var(--color-border)] bg-[var(--color-bg-secondary)] flex items-center px-3 gap-4 text-[10px] text-[var(--color-text-tertiary)] shrink-0 z-50">
-      {/* View Mode Toggle */}
-      <div className="flex items-center gap-0.5 bg-[var(--color-bg-surface)] rounded-md p-0.5 border border-[var(--color-border)]">
-        <button
-          onClick={() => setViewMode('preview')}
-          className={`px-2 py-0.5 rounded text-[10px] font-medium transition-all ${viewMode === 'preview' ? 'bg-[var(--color-accent-primary)] text-white' : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]'}`}
-        >
-          Preview
-        </button>
-        <button
-          onClick={() => setViewMode('markdown')}
-          className={`px-2 py-0.5 rounded text-[10px] font-medium transition-all ${viewMode === 'markdown' ? 'bg-[var(--color-accent-primary)] text-white' : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]'}`}
-        >
-          Markdown
-        </button>
-        <button
-          onClick={() => setViewMode('split')}
-          className={`px-2 py-0.5 rounded text-[10px] font-medium transition-all ${viewMode === 'split' ? 'bg-[var(--color-accent-primary)] text-white' : 'text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]'}`}
-        >
-          Split
-        </button>
-      </div>
-
       <div className="flex items-center gap-1">
         <Layers size={10} />
         <span>{sections.length} sections</span>
@@ -64,6 +40,12 @@ export function StatusBar() {
       </div>
 
       <div className="flex-1" />
+
+      {/* Keyboard Shortcut Hint */}
+      <div className="hidden md:flex items-center gap-1 text-[var(--color-text-tertiary)]">
+        <Command size={9} />
+        <span>Ctrl+K for commands</span>
+      </div>
 
       {/* Analyzer Score */}
       <button

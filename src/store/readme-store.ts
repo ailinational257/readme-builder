@@ -133,7 +133,7 @@ export const useReadmeStore = create<ReadmeState>()(
       },
     }),
     {
-      name: 'readme-studio-project',
+      name: 'readme-forge-project',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         projectName: state.projectName,

@@ -54,7 +54,7 @@ export const useUIStore = create<UIState>()(
       toggleCommandPalette: () => set(s => ({ commandPaletteOpen: !s.commandPaletteOpen })),
     }),
     {
-      name: 'readme-studio-ui',
+      name: 'readme-forge-ui',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         theme: state.theme,
