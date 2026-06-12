@@ -22,7 +22,7 @@
 
 **README Forge** (formerly Readme Builder Pro) is a comprehensive tool designed to help developers create stunning, professional `README.md` files for their repositories without the hassle of writing markdown from scratch. With an intuitive drag-and-drop interface, real-time preview, intelligent quality scoring, and a suite of pre-built templates, documenting your projects has never been easier.
 
-The project recently underwent a major production-quality upgrade, introducing a new GitHub-inspired design system, advanced keyboard navigation, and an intelligent README analyzer.
+The project recently underwent a major production-quality upgrade, introducing a newly revamped premium landing page, a new GitHub-inspired design system, advanced keyboard navigation, and an intelligent README analyzer.
 
 ## [NEW] ✨ Features
 
