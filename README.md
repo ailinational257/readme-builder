@@ -24,6 +24,11 @@
 
 The project recently underwent a major production-quality upgrade, introducing a newly revamped premium landing page, a new GitHub-inspired design system, advanced keyboard navigation, and an intelligent README analyzer.
 
+## 🆕 Recent Updates
+
+- **Modern Premium Landing Page**: Completely redesigned the landing page with a minimalist, dynamic aesthetic, glassmorphism elements, and smooth micro-animations.
+- **GitHub-Inspired Design**: Overhauled the UI to feel familiar and native to GitHub users.
+
 ## [NEW] ✨ Features
 
 - **Live Preview**: See your markdown rendered in real-time as you type, or switch to split-pane view.
